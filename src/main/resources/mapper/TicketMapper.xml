@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.TicketMapper">
+    <resultMap id="ticketMap" type="com.bean.LoginTicket">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="expired" column="expired"/>
+        <result property="ticket" column="ticket"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <insert id="insertTicket">
+        insert into login_ticket (user_id, ticket, expired, status) values(#{userId}, #{ticket}, #{expired}, #{status})
+    </insert>
+    <delete id="deleteByTicket">
+        delete from login_ticket where ticket = #{ticket}
+    </delete>
+    <select id="seletByTicket" resultMap="ticketMap">
+        select id, user_id, ticket, expired, status from login_ticket where ticket = #{ticket}
+    </select>
+</mapper>

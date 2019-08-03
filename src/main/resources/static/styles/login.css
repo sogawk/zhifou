@@ -3055,3 +3055,6 @@ html.is-AppPromotionBarVisible .AppPromotionBar {
         box-shadow: inset 0 -3px #006acc
     }
 }
+#errorMessage {
+    color: red;
+}
