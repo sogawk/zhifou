@@ -4,6 +4,7 @@ import com.bean.HostHolder;
 
 import com.service.UserService;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,44 +27,51 @@ public class LoginController {
     HostHolder hostHolder;
 
 
-    @RequestMapping("/doRegister")
+    @RequestMapping("/reg")
     public String doRegister(Model model,
                              HttpSession session,
-                             @RequestParam("userName") String name,
+                             @RequestParam("username") String name,
                              @RequestParam("password") String password,
-                             @RequestParam("rememberMe") boolean rememberMe,
+                             @RequestParam(value = "rememberMe", defaultValue = "false")  boolean rememberMe,
+                             @RequestParam(value = "next", required = false) String next,
                              HttpServletResponse response) {
 
         Map map = userService.register(name, password);
         if (map.containsKey("ticket")) {
             Cookie cookie = new Cookie("ticket", map.get("ticket").toString());
             cookie.setPath("/");
-//todo 如果没记住。。。
+
             if (rememberMe) {
                 cookie.setMaxAge(3600 * 24 * 5);
             }
             response.addCookie(cookie);
 
         } else {
-            model.addAttribute("message", map.get("message"));
+            model.addAttribute("msg", map.get("message"));
             return "login";
         }
 
+        if (StringUtils.isNotBlank(next)) {
+            return "redirect:" + next;
+        }
         return "redirect:/";
     }
 
-    @RequestMapping({"/login"})
-    public String index() {
+    @RequestMapping({"/reglogin"})
+    public String index(Model model,
+                        @RequestParam(value = "next", required = false) String next) {
+        model.addAttribute("next", next);
         return "login";
     }
 
-    @RequestMapping("/doLogin")
+    @RequestMapping("/login")
     public String doLogin(Model model,
                           HttpSession session,
                           HttpServletResponse response,
-                          @RequestParam("userName") String name,
+                          @RequestParam("username") String name,
                           @RequestParam("password") String password,
-                          @RequestParam("rememberMe") boolean rememberMe) {
+                          @RequestParam(value = "rememberMe", defaultValue = "false")  boolean rememberMe,
+                          @RequestParam(value = "next", required = false) String next) {
 
         Map map = userService.doLogin(name, password);
         if (map.containsKey("ticket")) {
@@ -75,9 +83,12 @@ public class LoginController {
             }
             response.addCookie(cookie);
 
+            if (StringUtils.isNotBlank(next)) {
+                return "redirect:" + next;
+            }
             return "redirect:/";
         } else {
-            model.addAttribute("message", map.get("message"));
+            model.addAttribute("msg", map.get("message"));
             return "login";
         }
 
@@ -89,8 +100,5 @@ public class LoginController {
         return "redirect:/";
     }
 
-    @RequestMapping("/")
-    public String temp() {
-        return "index";
-    }
+
 }

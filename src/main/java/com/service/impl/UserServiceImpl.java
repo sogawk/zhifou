@@ -97,6 +97,11 @@ public class UserServiceImpl implements UserService {
         ticketMapper.deleteByTicket(ticket);
     }
 
+    @Override
+    public User getUserById(int usrId) {
+        return userMapper.selectUserById(usrId);
+    }
+
     public String addLoginTicket(int userId) {
         LoginTicket loginTicket = new LoginTicket();
         loginTicket.setUserId(userId);

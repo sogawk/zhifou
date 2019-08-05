@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+@Repository
 public interface TicketMapper {
     void insertTicket(LoginTicket ticket);
 

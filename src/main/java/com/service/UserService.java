@@ -15,4 +15,6 @@ public interface UserService {
     Map doLogin(String name, String password);
 
     void logout(String ticket);
+
+    User getUserById(int usrId);
 }

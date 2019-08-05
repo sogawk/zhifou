@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.QuestionMapper">
+
+    <resultMap id="questionResult" type="com.bean.Question">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="commentCount" column="comment_count"/>
+        <result property="createTime" column="created_date"/>
+    </resultMap>
+
+    <sql id="questionNoId">
+        ( title, content, user_id, created_date, comment_count )
+    </sql>
+
+    <sql id="allQuestion">
+        id, title, content, user_id, created_date, comment_count
+    </sql>
+    <insert id="insertQuestion">
+        insert into question <include refid="questionNoId"/> values(#{title}, #{content}, #{userId}, #{createTime}, #{commentCount})
+    </insert>
+
+    <select id="getLatestQuestion" resultMap="questionResult">
+        select
+        <include refid="allQuestion"/>
+        from question
+        <if test="userId != 0">
+            where user_id = #{userId}
+        </if>
+        order by id desc
+        limit #{offset}, #{limit}
+    </select>
+    <select id="selectQuestionById" resultMap="questionResult">
+        select
+        <include refid="allQuestion"/>
+        from question
+        where id = #{questionId}
+    </select>
+</mapper>
