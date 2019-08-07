@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.MessageMapper">
+    <resultMap id="messageResult" type="com.bean.Message">
+        <id property="id" column="id"/>
+        <result property="fromId" column="from_id"/>
+        <result property="toId" column="to_id"/>
+        <result property="content" column="content"/>
+        <result property="createdDate" column="created_date"/>
+        <result property="hasRead" column="has_read"/>
+        <result property="conversationId" column="conversation_id"/>
+    </resultMap>
+
+    <sql id="insert_file">
+        from_id, to_id, content, created_date, has_read, conversation_id
+    </sql>
+    <sql id="select_file">
+        id, from_id, to_id, content, created_date, has_read, conversation_id
+    </sql>
+
+    <insert id="insertMessage">
+      insert into message
+        ( <include refid="insert_file"/> )
+      values (#{fromId}, #{toId}, #{content}, #{createdDate}, #{hasRead}, #{conversationId})
+    </insert>
+    <select id="selectByUserId" resultMap="messageResult">
+      select <include refid="insert_file"/> ,count(1) as id
+      from (select <include refid="select_file"/>
+      from message
+      where from_id = #{param1} or to_id = #{param1} order by created_date desc)
+      as t
+      group by conversation_id
+      order by created_date desc
+      limit #{param2}, #{param3}
+    </select>
+
+    <select id="selectUnreadCount" resultType="java.lang.Integer">
+        select count(1)
+        from message
+        where to_id = #{param1}
+        AND conversation_id = #{param2}
+    </select>
+    <select id="selectByConversationId" resultType="com.bean.Message">
+        select <include refid="select_file"/>
+        from message
+        where conversation_id = #{conversationId}
+        order by created_date desc
+    </select>
+</mapper>

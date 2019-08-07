@@ -11,7 +11,7 @@ import java.util.Map;
 @Service
 public class SensitiveService implements InitializingBean {
 
-    public static final String REPLACE_WORD = "*";
+    public static final String REPLACE_WORD = "***";
 
     private class TrieNote {
 

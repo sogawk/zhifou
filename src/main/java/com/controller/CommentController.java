@@ -37,7 +37,7 @@ public class CommentController {
         comment.setEntityId(questionId);
         comment.setStatus(0);
         if (hostHolder.getUser() == null) {
-            return "redirect:/";
+            return "redirect:reglogin";
         } else {
             comment.setUserId(hostHolder.getUser().getId());
         }
