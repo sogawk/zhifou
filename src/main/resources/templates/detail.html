@@ -102,7 +102,7 @@
                                 <img src="$comment.user.headUrl"
                                      class="zm-list-avatar avatar"></a>
                             <a class="author-link" target="_blank" href="/user/$comment.user.id">$comment.user.name</a>
-                            </div>
+                        </div>
                         <div class="zm-item-vote-info" data-votecount="28" data-za-module="VoteInfo">
                                 <span class="voters text">
                                     <a href="" class="more text">
@@ -120,7 +120,7 @@
                     <div class="zm-item-meta answer-actions clearfix js-contentActions">
                         <div class="zm-meta-panel">
                             <a itemprop="url" class="answer-date-link meta-item" target="_blank" href="">发布于
-                                $date.format('yyyy-MM-dd HH:mm:ss', $comment.comment.createdDate)</a>
+                                $date.format('yyyy-MM-dd HH:mm:ss', $comment.comment.createTime)</a>
 
                             <!--
                             <a href="" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
@@ -140,20 +140,20 @@
             <a name="draft"></a>
             <form action="/addComment" method="post" id="commentform">
                 <input type="hidden" name="questionId" value="$question.id"/>
-            <div id="zh-question-answer-form-wrap" class="zh-question-answer-form-wrap">
-                <div class="zm-editable-editor-wrap" style="">
-                    <div class="zm-editable-editor-outer">
-                        <div class="zm-editable-editor-field-wrap">
-                            <textarea name="content" id="content" class="zm-editable-editor-field-element editable" style="font-style: italic;width:100%;"></textarea>
+                <div id="zh-question-answer-form-wrap" class="zh-question-answer-form-wrap">
+                    <div class="zm-editable-editor-wrap" style="">
+                        <div class="zm-editable-editor-outer">
+                            <div class="zm-editable-editor-field-wrap">
+                                <textarea name="content" id="content" class="zm-editable-editor-field-element editable" style="font-style: italic;width:100%;"></textarea>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="zm-command clearfix">
+                        <div class="zm-command clearfix">
                             <span class=" zg-right">
                                 <button type="submit" class="submit-button zg-btn-blue">发布回答</button></span>
+                        </div>
                     </div>
                 </div>
-            </div>
             </form>
 
         </div>
