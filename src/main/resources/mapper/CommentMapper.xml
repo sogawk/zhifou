@@ -25,12 +25,21 @@
         ( <include refid="noIdComment"/>  )
         values (#{content}, #{userId}, #{createTime}, #{entity_type}, #{entityId}, #{status})
     </insert>
+
     <update id="updateComment"></update>
     <delete id="deleteComment"></delete>
+
     <select id="selectAllComments" resultMap="commentResult">
         select <include refid="allComment"/>
         from comment
         where entity_id = #{param1}
         AND entity_type = #{param2}
+        order by created_date desc
+    </select>
+    <select id="getCommentById" resultMap="commentResult">
+        select
+        <include refid="allComment"/>
+        from comment;
+        where id = #{commentId}
     </select>
 </mapper>

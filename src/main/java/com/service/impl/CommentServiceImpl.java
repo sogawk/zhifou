@@ -23,4 +23,9 @@ public class CommentServiceImpl implements CommentService {
     public List<Comment> getCommentsByEntity(int entityType, int entityId) {
         return commentMapper.selectAllComments(entityId, entityType);
     }
+
+    @Override
+    public Comment getCommentById(int commentId) {
+        return commentMapper.getCommentById(commentId);
+    }
 }

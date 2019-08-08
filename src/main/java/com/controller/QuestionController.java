@@ -1,9 +1,7 @@
 package com.controller;
 
 import com.bean.*;
-import com.service.CommentService;
-import com.service.QuestionService;
-import com.service.SensitiveService;
+import com.service.*;
 import com.util.zhifouUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,6 +32,13 @@ public class QuestionController {
 
     @Autowired
     CommentService commentService;
+
+    @Autowired
+    LikeService likeService;
+
+    @Autowired
+    UserService userService;
+
     @RequestMapping("add")
     @ResponseBody
     public String addQuestion(@RequestParam("title") String title,
@@ -75,8 +80,18 @@ public class QuestionController {
         List<ViewObject> list = new ArrayList<>();
         for (Comment comment : comments) {
             ViewObject viewObject = new ViewObject();
+
+            if (hostHolder.getUser() == null) {
+                viewObject.put("liked", 0);
+            } else {
+                viewObject.put("liked", likeService.getStatus(hostHolder.getUser().getId(), EntityType.Entity_Comment, comment.getId()));
+            }
+
+            viewObject.put("likeCount", likeService.getLikeCount(EntityType.Entity_Comment, comment.getId()));
             viewObject.put("comment", comment);
-            viewObject.put("user", hostHolder.getUser());
+
+            User user = userService.getUserById(comment.getUserId());
+            viewObject.put("user", user);
             list.add(viewObject);
         }
         model.addAttribute("comments", list);

@@ -15,4 +15,6 @@ public interface CommentMapper {
 
     List<Comment> selectAllComments(int entityId, int entityType);
 
+    Comment getCommentById(int commentId);
+
 }

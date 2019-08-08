@@ -8,4 +8,6 @@ public interface CommentService {
     int addComment(Comment comment);
 
     List<Comment> getCommentsByEntity(int entityType, int entityId);
+
+    Comment getCommentById(int commentId);
 }
