@@ -13,6 +13,7 @@ public class zhifouUtil {
     private static final Logger logger = LoggerFactory.getLogger(zhifouUtil.class);
 
     public static final int ANONYMOUS_USERID = 0;
+        public static final int SYSTEM_USERID = 2;
 
     public static String getJsonString(int code) {
         JSONObject jsonObject = new JSONObject();

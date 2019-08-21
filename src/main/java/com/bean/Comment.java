@@ -8,20 +8,20 @@ public class Comment {
     private int userId;
     private int entityId;
     private int entity_type;
-    private Date createTime;
+    private Date createdDate;
     private int status;
 
 
     public Comment() {
     }
 
-    public Comment(int id, String content, int userId, int entityId, int entity_type, Date createTime, int status) {
+    public Comment(int id, String content, int userId, int entityId, int entity_type, Date createdDate, int status) {
         this.id = id;
         this.content = content;
         this.userId = userId;
         this.entityId = entityId;
         this.entity_type = entity_type;
-        this.createTime = createTime;
+        this.createdDate = createdDate;
         this.status = status;
     }
 
@@ -33,7 +33,7 @@ public class Comment {
                 ", userId=" + userId +
                 ", entityId=" + entityId +
                 ", entity_type='" + entity_type + '\'' +
-                ", createTime=" + createTime +
+                ", createdDate=" + createdDate +
                 ", status=" + status +
                 '}';
     }
@@ -78,12 +78,12 @@ public class Comment {
         this.entity_type = entity_type;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
     public int getStatus() {

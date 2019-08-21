@@ -51,7 +51,7 @@ public class QuestionController {
         Question question = new Question();
         question.setTitle(title);
         question.setContent(content);
-        question.setCreateTime(new Date());
+        question.setCreatedDate(new Date());
         question.setCommentCount(0);
 
         if (hostHolder.getUser() == null) {

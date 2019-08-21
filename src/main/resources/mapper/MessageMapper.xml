@@ -27,7 +27,7 @@
       select <include refid="insert_file"/> ,count(1) as id
       from (select <include refid="select_file"/>
       from message
-      where from_id = #{param1} or to_id = #{param1} order by created_date desc)
+      where from_id = #{param1} or to_id = #{param1} order by created_date desc limit 99999)
       as t
       group by conversation_id
       order by created_date desc

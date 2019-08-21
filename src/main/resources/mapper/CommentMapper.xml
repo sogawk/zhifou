@@ -6,7 +6,7 @@
         <id property="id" column="id"/>
         <result property="content" column="content"/>
         <result property="userId" column="user_id"/>
-        <result property="createTime" column="created_date"/>
+        <result property="createdDate" column="created_date"/>
         <result property="entity_type" column="entity_type"/>
         <result property="entityId" column="entity_id"/>
         <result property="status" column="status"/>
@@ -23,7 +23,7 @@
     <insert id="insertComment">
         insert into comment
         ( <include refid="noIdComment"/>  )
-        values (#{content}, #{userId}, #{createTime}, #{entity_type}, #{entityId}, #{status})
+        values (#{content}, #{userId}, #{createdDate}, #{entity_type}, #{entityId}, #{status})
     </insert>
 
     <update id="updateComment"></update>
@@ -39,7 +39,7 @@
     <select id="getCommentById" resultMap="commentResult">
         select
         <include refid="allComment"/>
-        from comment;
+        from comment
         where id = #{commentId}
     </select>
 </mapper>

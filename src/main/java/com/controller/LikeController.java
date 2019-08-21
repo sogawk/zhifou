@@ -1,5 +1,8 @@
 package com.controller;
 
+import com.async.EventModel;
+import com.async.EventProducer;
+import com.async.EventType;
 import com.bean.Comment;
 import com.bean.EntityType;
 import com.bean.HostHolder;
@@ -25,6 +28,9 @@ public class LikeController {
     @Autowired
     CommentService commentService;
 
+    @Autowired
+    EventProducer eventProducer;
+
     @RequestMapping("/like")
     @ResponseBody
     public String like(@RequestParam("commentId") int commentId) {
@@ -32,6 +38,14 @@ public class LikeController {
         if (user == null) {
             return zhifouUtil.getJsonString(999, "未登录");
         }
+
+        Comment comment = commentService.getCommentById(commentId);
+
+        eventProducer.fireEvent(new EventModel(EventType.LIKE)
+                .setActorId(user.getId()).setEntityId(commentId).setEntityType(EntityType.Entity_Comment)
+                .setEntityOwnerId(comment.getUserId()).setExt("questionId", String.valueOf(comment.getEntityId()))
+        );
+
 
         long likeCount = likeService.like(user.getId(), EntityType.Entity_Comment, commentId);
         return zhifouUtil.getJsonString(0, String.valueOf(likeCount));

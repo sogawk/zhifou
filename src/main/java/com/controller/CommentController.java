@@ -32,7 +32,7 @@ public class CommentController {
         content = sensitiveService.filter(content).toString();
         Comment comment = new Comment();
         comment.setContent(content);
-        comment.setCreateTime(new Date());
+        comment.setCreatedDate(new Date());
         comment.setEntity_type(EntityType.Entity_Question);
         comment.setEntityId(questionId);
         comment.setStatus(0);

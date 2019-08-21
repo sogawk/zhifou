@@ -6,18 +6,18 @@ public class Question {
     private int id;
     private String title;
     private String content;
-    private Date createTime;
+    private Date createdDate;
     private int userId;
     private int commentCount;
 
     public Question() {
     }
 
-    public Question(int id, String title, String content, Date createTime, int userId, int commentCount) {
+    public Question(int id, String title, String content, Date createdDate, int userId, int commentCount) {
         this.id = id;
         this.title = title;
         this.content = content;
-        this.createTime = createTime;
+        this.createdDate = createdDate;
         this.userId = userId;
         this.commentCount = commentCount;
     }
@@ -28,7 +28,7 @@ public class Question {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
-                ", createTime=" + createTime +
+                ", createdDate=" + createdDate +
                 ", userId=" + userId +
                 ", commentCount=" + commentCount +
                 '}';
@@ -58,12 +58,12 @@ public class Question {
         this.content = content;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
     public int getUserId() {
