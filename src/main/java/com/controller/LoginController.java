@@ -1,5 +1,8 @@
 package com.controller;
 
+import com.async.EventModel;
+import com.async.EventProducer;
+import com.async.EventType;
 import com.bean.HostHolder;
 
 import com.service.UserService;
@@ -25,6 +28,9 @@ public class LoginController {
 
     @Autowired
     HostHolder hostHolder;
+
+    @Autowired
+    EventProducer eventProducer;
 
 
     @RequestMapping("/reg")
@@ -82,6 +88,12 @@ public class LoginController {
                 cookie.setMaxAge(3600 * 24 * 5);
             }
             response.addCookie(cookie);
+
+            eventProducer.fireEvent(new EventModel(EventType.LOGIN)
+                    .setActorId((int) map.get("userId")).setExt("username", name).setExt("email", "soga88@qq.com")
+            );
+
+
 
             if (StringUtils.isNotBlank(next)) {
                 return "redirect:" + next;
