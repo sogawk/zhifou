@@ -72,7 +72,6 @@ public class LoginController {
 
     @RequestMapping("/login")
     public String doLogin(Model model,
-                          HttpSession session,
                           HttpServletResponse response,
                           @RequestParam("username") String name,
                           @RequestParam("password") String password,
@@ -89,9 +88,10 @@ public class LoginController {
             }
             response.addCookie(cookie);
 
-            eventProducer.fireEvent(new EventModel(EventType.LOGIN)
-                    .setActorId((int) map.get("userId")).setExt("username", name).setExt("email", "soga88@qq.com")
-            );
+//            eventProducer.fireEvent(new EventModel(EventType.LOGIN)
+//                    .setActorId((int) map.get("userId")).setExt("username", name).setExt("email", "soga88@qq.com")
+//            );
+            //todo 登陆发邮件
 
 
 

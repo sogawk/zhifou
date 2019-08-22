@@ -71,7 +71,7 @@ public class MessageController {
             User targetUser = userService.getUserById(id);
             ViewObject vo = new ViewObject();
             vo.put("user", targetUser);
-            vo.put("conversation", message);
+            vo.put("message", message);
             vo.put("unread", messageService.getUnReadId(hostHolder.getUser().getId(), message.getConversationId()));
             vos.add(vo);
         }
@@ -89,6 +89,7 @@ public class MessageController {
             User user = userService.getUserById(message.getFromId());
             vo.put("userId", user.getId());
             vo.put("headUrl", user.getHeadUrl());
+            vo.put("user", user);
             vos.add(vo);
         }
         model.addAttribute("messages", vos);

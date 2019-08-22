@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.security.MessageDigest;
+import java.util.Map;
 
 /**
  * Created by nowcoder on 2016/7/3.
@@ -13,7 +14,7 @@ public class zhifouUtil {
     private static final Logger logger = LoggerFactory.getLogger(zhifouUtil.class);
 
     public static final int ANONYMOUS_USERID = 0;
-        public static final int SYSTEM_USERID = 2;
+    public static final int SYSTEM_USERID = 2;
 
     public static String getJsonString(int code) {
         JSONObject jsonObject = new JSONObject();
@@ -25,6 +26,15 @@ public class zhifouUtil {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("code", code);
         jsonObject.put("msg", msg);
+        return jsonObject.toJSONString();
+    }
+
+    public static String getJsonString(int code, Map<String, Object> map) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("code", code);
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            jsonObject.put(entry.getKey(), entry.getValue());
+        }
         return jsonObject.toJSONString();
     }
 

@@ -55,6 +55,10 @@ public class EventConsumer implements InitializingBean, ApplicationContextAware 
                         }
                         EventModel eventModel = JSON.parseObject(message, EventModel.class);
 
+                        if (config.get(eventModel.getEventType())==null) {
+                            continue;
+                        }
+
                         for (EventHandler eventHandler : config.get(eventModel.getEventType())) {
                             eventHandler.doHandler(eventModel);
                         }

@@ -42,4 +42,7 @@
         from comment
         where id = #{commentId}
     </select>
+    <select id="getUserCommentCount" resultType="java.lang.Integer">
+        select count(*) from comment where user_id = #{userId}
+    </select>
 </mapper>

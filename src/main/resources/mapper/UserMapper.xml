@@ -13,7 +13,7 @@
         insert into user(name, password, salt, head_url) values(#{name}, #{password}, #{salt}, #{headUrl});
     </insert>
     <select id="selectUserByName" resultMap="userResult">
-        select id, name, password, salt, head_url from user where name = #{name}
+        select id, name, password, salt, head_url from user where binary name = #{name}
     </select>
     <select id="selectUserById" resultMap="userResult">
         select id, name, password, salt, head_url from user where id = #{id}

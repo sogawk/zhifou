@@ -3,6 +3,7 @@ package com.async.handler;
 import com.async.EventHandler;
 import com.async.EventModel;
 import com.async.EventType;
+import com.bean.EntityType;
 import com.bean.Message;
 import com.bean.User;
 import com.service.MessageService;
@@ -16,13 +17,14 @@ import java.util.Date;
 import java.util.List;
 
 @Component
-public class LikeHandler implements EventHandler {
+public class FollowHandler implements EventHandler {
+
+    @Autowired
+    UserService userService;
 
     @Autowired
     MessageService messageService;
 
-    @Autowired
-    UserService userService;
 
     @Override
     public void doHandler(EventModel model) {
@@ -30,15 +32,21 @@ public class LikeHandler implements EventHandler {
         message.setFromId(zhifouUtil.SYSTEM_USERID);
         message.setToId(model.getEntityOwnerId());
         message.setCreatedDate(new Date());
-
         User user = userService.getUserById(model.getActorId());
-        message.setContent("用户"+user.getName()+ "赞了你的评论，http://127.0.0.1:8080/question/" + model.getExt("questionId"));
+        if (model.getEntityType() == EntityType.Entity_Question) {
+            message.setContent("用户" + user.getName()
+                    + "关注了你的问题,http://127.0.0.1:8080/question/" + model.getEntityId());
+        } else if (model.getEntityType() == EntityType.Entity_User) {
+            message.setContent("用户" + user.getName()
+                    + "关注了你,http://127.0.0.1:8080/user/" + model.getActorId());
+        }
+
         messageService.addMessage(message);
 
     }
 
     @Override
     public List<EventType> getSupportEventType() {
-        return Arrays.asList(EventType.LIKE);
+        return Arrays.asList(EventType.FOLLOW);
     }
 }

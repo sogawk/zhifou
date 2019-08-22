@@ -22,8 +22,24 @@ public class tt {
         System.out.println(String.format("%d, %s", index, obj.toString()));
     }
 
-    @Test
-    public void method() {
+    class A {
+    }
+
+    class B extends A {
 
     }
+
+    @Test
+    public void method() {
+        A a = new A();
+        B b = new B();
+
+        A c = b;
+
+        B d =(B) a;
+
+        B e = b;
+    }
+
+
 }
