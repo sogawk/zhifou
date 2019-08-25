@@ -15,7 +15,6 @@ import java.util.Date;
 
 @Controller
 public class CommentController {
-
     @Autowired
     SensitiveService sensitiveService;
 

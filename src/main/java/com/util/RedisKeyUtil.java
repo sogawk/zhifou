@@ -27,4 +27,9 @@ public class RedisKeyUtil {
     public static String getFolloweeKey(int userId, int entityType) {
         return "FOLLOWEE:" + entityType + ":" + userId;
     }
+
+    //获取时间轴的key
+    public static String getTimeLineKey(int userId) {
+        return "TIMELINE:" + userId;
+    }
 }

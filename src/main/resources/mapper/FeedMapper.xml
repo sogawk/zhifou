@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.FeedMapper">
+
+    <resultMap id="feedResult" type="com.bean.Feed">
+        <id property="id" column="id"/>
+        <result property="createdDate" column="created_date"/>
+        <result property="userId" column="user_id"/>
+        <result property="data" column="data"/>
+        <result property="type" column="type"/>
+    </resultMap>
+
+    <sql id="insert_fields">
+        created_date, user_id, data, type
+    </sql>
+
+    <sql id="select_fields">
+        id, created_date, user_id, data, type
+    </sql>
+
+    <insert id="addFeed">
+      insert into feed (<include refid="insert_fields"/> ) values(#{createdDate}, #{userId}, #{data}, #{type}) 
+    </insert>
+
+    <select id="getFeedById" resultType="com.bean.Feed">
+        select <include refid="select_fields"/> from feed where id = #{id}
+    </select>
+
+    <select id="selectUserFeeds" resultType="com.bean.Feed">
+        select <include refid="select_fields"/> from feed where id &lt; #{maxId}
+        <if test="userIds.size() != 0">
+            AND user_id in
+            <foreach item="item" index="index" collection="userIds"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        order by id desc
+        limit #{count}
+    </select>
+</mapper>
