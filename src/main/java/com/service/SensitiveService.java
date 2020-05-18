@@ -8,7 +8,7 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
-@Service
+@Service("sensitiveService")
 public class SensitiveService implements InitializingBean {
 
     public static final String REPLACE_WORD = "***";
@@ -117,13 +117,14 @@ public class SensitiveService implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        FileInputStream fileInputStream = new FileInputStream("E:/idea/zhifou/src/main/resources/sensitiveWords");
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
+//        FileInputStream fileInputStream = (FileInputStream) ;
+        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("sensitiveWords");
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         String str;
         while ((str = bufferedReader.readLine())!= null) {
             this.addWord(str);
         }
-        fileInputStream.close();
+//        fileInputStream.close();
         bufferedReader.close();
     }
 

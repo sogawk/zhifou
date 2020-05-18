@@ -6,16 +6,16 @@
         <result property="fromId" column="from_id"/>
         <result property="toId" column="to_id"/>
         <result property="content" column="content"/>
-        <result property="createdDate" column="created_date"/>
+        <result property="createdDate" column="create_date"/>
         <result property="hasRead" column="has_read"/>
         <result property="conversationId" column="conversation_id"/>
     </resultMap>
 
     <sql id="insert_file">
-        from_id, to_id, content, created_date, has_read, conversation_id
+        from_id, to_id, content, create_date, has_read, conversation_id
     </sql>
     <sql id="select_file">
-        id, from_id, to_id, content, created_date, has_read, conversation_id
+        id, from_id, to_id, content, create_date, has_read, conversation_id
     </sql>
 
     <insert id="insertMessage">
@@ -27,10 +27,10 @@
       select <include refid="insert_file"/> ,count(1) as id
       from (select <include refid="select_file"/>
       from message
-      where from_id = #{param1} or to_id = #{param1} order by created_date desc limit 99999)
+      where from_id = #{param1} or to_id = #{param1} order by create_date desc limit 99999)
       as t
       group by conversation_id
-      order by created_date desc
+      order by create_date desc
       limit #{param2}, #{param3}
     </select>
 
@@ -44,6 +44,6 @@
         select <include refid="select_file"/>
         from message
         where conversation_id = #{conversationId}
-        order by created_date desc
+        order by create_date desc
     </select>
 </mapper>

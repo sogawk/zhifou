@@ -6,18 +6,18 @@
         <id property="id" column="id"/>
         <result property="content" column="content"/>
         <result property="userId" column="user_id"/>
-        <result property="createdDate" column="created_date"/>
+        <result property="createdDate" column="create_date"/>
         <result property="entity_type" column="entity_type"/>
         <result property="entityId" column="entity_id"/>
         <result property="status" column="status"/>
     </resultMap>
 
     <sql id="allComment">
-        id, content, user_id, created_date, entity_type, entity_id, status
+        id, content, user_id, create_date, entity_type, entity_id, status
     </sql>
 
     <sql id="noIdComment">
-        content, user_id, created_date, entity_type, entity_id, status
+        content, user_id, create_date, entity_type, entity_id, status
     </sql>
 
     <insert id="insertComment">
@@ -34,7 +34,7 @@
         from comment
         where entity_id = #{param1}
         AND entity_type = #{param2}
-        order by created_date desc
+        order by create_date desc
     </select>
     <select id="getCommentById" resultMap="commentResult">
         select

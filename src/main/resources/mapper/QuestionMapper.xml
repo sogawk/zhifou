@@ -8,15 +8,15 @@
         <result property="title" column="title"/>
         <result property="content" column="content"/>
         <result property="commentCount" column="comment_count"/>
-        <result property="createdDate" column="created_date"/>
+        <result property="createdDate" column="create_date"/>
     </resultMap>
 
     <sql id="questionNoId">
-        ( title, content, user_id, created_date, comment_count )
+        ( title, content, user_id, create_date, comment_count )
     </sql>
 
     <sql id="allQuestion">
-        id, title, content, user_id, created_date, comment_count
+        id, title, content, user_id, create_date, comment_count
     </sql>
     <insert id="insertQuestion">
         insert into question <include refid="questionNoId"/> values(#{title}, #{content}, #{userId}, #{createdDate}, #{commentCount})
