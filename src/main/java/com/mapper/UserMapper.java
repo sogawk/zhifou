@@ -13,5 +13,4 @@ public interface UserMapper {
     User selectUserByName(String name);
 
     User selectUserById(int userId);
-
 }
